@@ -16,6 +16,7 @@
 [Git](https://www.git-scm.com/download/)
 <br>[Visual Paradigm](https://www.visual-paradigm.com)
 <br>[Maven repository](https://mvnrepository.com/)
+<br>[Flyway](https://flywaydb.org/getstarted/firststeps/maven)
 
 ## 脚本
 ```sql
@@ -35,5 +36,7 @@ CREATE TABLE USER(
     "GMT_CREATE" BIGINT,
     "GMT_MODIFIED" BIGINT
 );
-
+```
+```bash
+mvn flyway:migrate
 ```
