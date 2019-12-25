@@ -13,12 +13,15 @@
 <br>[Mybaties](http://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/)
 <br>[Thymeleaf](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#setting-attribute-values)
 
+
 ## 工具
 [Git](https://www.git-scm.com/download/)
 <br>[Visual Paradigm](https://www.visual-paradigm.com)
 <br>[Maven repository](https://mvnrepository.com/)
 <br>[Flyway](https://flywaydb.org/getstarted/firststeps/maven)
 <br>[Lombok](https://projectlombok.org/)
+<br>[jQuery](https://code.jquery.com/jquery-3.4.1.min.js)
+
 ## 脚本
 ```sql
 CREATE CACHED TABLE "PUBLIC"."USER"(
