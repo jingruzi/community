@@ -11,13 +11,14 @@
 <br>[h2](http://www.h2database.com/html/quickstart.html)
 <br>[Spring DataBase Support](https://docs.spring.io/spring-boot/docs/2.0.0.RC1/reference/htmlsingle/#boot-features-embedded-database-support)
 <br>[Mybaties](http://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/)
+<br>[Thymeleaf](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#setting-attribute-values)
 
 ## 工具
 [Git](https://www.git-scm.com/download/)
 <br>[Visual Paradigm](https://www.visual-paradigm.com)
 <br>[Maven repository](https://mvnrepository.com/)
 <br>[Flyway](https://flywaydb.org/getstarted/firststeps/maven)
-
+<br>[Lombok](https://projectlombok.org/)
 ## 脚本
 ```sql
 CREATE CACHED TABLE "PUBLIC"."USER"(
