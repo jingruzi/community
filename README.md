@@ -10,9 +10,10 @@
 <br>[okHttp](https://square.github.io/okhttp/)
 <br>[h2](http://www.h2database.com/html/quickstart.html)
 <br>[Spring DataBase Support](https://docs.spring.io/spring-boot/docs/2.0.0.RC1/reference/htmlsingle/#boot-features-embedded-database-support)
-<br>[Mybaties](http://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/)
+<br>[MyBaties](http://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/)
 <br>[Thymeleaf](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#setting-attribute-values)
 <br>[Spring MVC](https://docs.spring.io/spring/docs/5.0.3.RELEASE/spring-framework-reference/web.html#mvc-config-interceptors)
+<br>[MyBaties Generator](http://mybatis.org/generator/running/runningWithMaven.html)
 
 ## 工具
 [Git](https://www.git-scm.com/download/)
@@ -24,14 +25,6 @@
 
 ## 脚本
 ```sql
-CREATE CACHED TABLE "PUBLIC"."USER"(
-    "ID" INT DEFAULT NEXT VALUE FOR "PUBLIC" NOT NULL,
-    "ACCOUNT_ID" VARCHAR(100),
-    "NAME" VARCHAR(50),
-    "TOKEN" CHAR(36),
-    "GMT_CREATE" BIGINT,
-    "GMT_MODIFIED" BIGINT
-)
 CREATE TABLE USER(
     "ID" INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     "ACCOUNT_ID" VARCHAR(100),
@@ -43,4 +36,5 @@ CREATE TABLE USER(
 ```
 ```bash
 mvn flyway:migrate
+mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
 ```
