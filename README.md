@@ -22,6 +22,7 @@
 <br>[Flyway](https://flywaydb.org/getstarted/firststeps/maven)
 <br>[Lombok](https://projectlombok.org/)
 <br>[jQuery](https://code.jquery.com/jquery-3.4.1.min.js)
+<br>[Postman](https://chrome.google.com/webstore/detail/coohjcphdfgbiolnekdpbcijmhambjff)
 
 ## 脚本
 ```sql
