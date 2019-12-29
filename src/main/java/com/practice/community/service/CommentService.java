@@ -10,6 +10,7 @@ import com.practice.community.model.Comment;
 import com.practice.community.model.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CommentService {
@@ -22,6 +23,7 @@ public class CommentService {
     @Autowired
     private QuestionExtMapper questionExtMapper;
 
+    @Transactional//将insert功能封装成事物，让添加评论数和评论内容两个方法，具有同时成功同时失败的事物原子性
     public void insert(Comment comment) {
         if(comment.getParentId() == null || comment.getParentId() == 0){
             throw new CustomizeException(CustomizeErrorCode.TARGET_PARAM_NOT_FOUND);
@@ -43,9 +45,9 @@ public class CommentService {
             if(question == null){
                 throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
             }
-            commentMapper.insert(comment);
+            commentMapper.insert(comment);//添加评论内容等信息
             question.setCommentCount(1);
-            questionExtMapper.incComment(question);
+            questionExtMapper.incComment(question);//增加评论数
         }
     }
 }
