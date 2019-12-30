@@ -111,3 +111,20 @@ function collapseComments(e) {
         }
     }
 }
+
+function showSelectTag() {
+    $("#select-tag").show();
+}
+
+function selectTag(e) {
+    var value = e.getAttribute("data-tag");
+    var previous = $("#tag").val();
+    //如果不存在这个标签再添加进来
+    if (previous.indexOf(value) == -1) {
+        if (previous) {
+            $("#tag").val(previous + ',' + value);
+        } else {
+            $("#tag").val(value);
+        }
+    }
+}
