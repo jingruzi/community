@@ -2,6 +2,8 @@ package com.practice.community.service;
 
 import com.practice.community.dto.CommentDTO;
 import com.practice.community.enums.CommentTypeEnum;
+import com.practice.community.enums.NotificationStatusEnum;
+import com.practice.community.enums.NotificationTypeEnum;
 import com.practice.community.exception.CustomizeErrorCode;
 import com.practice.community.exception.CustomizeException;
 import com.practice.community.mapper.*;
@@ -34,8 +36,11 @@ public class CommentService {
     @Autowired
     private CommenteExtMapper commenteExtMapper;
 
+    @Autowired
+    private NotificationMapper notificationMapper;
+
     @Transactional//将insert功能封装成事物，让添加评论数和评论内容两个方法，具有同时成功同时失败的事物原子性
-    public void insert(Comment comment) {
+    public void insert(Comment comment, User commentator) {
         if(comment.getParentId() == null || comment.getParentId() == 0){
             throw new CustomizeException(CustomizeErrorCode.TARGET_PARAM_NOT_FOUND);
         }
@@ -49,12 +54,20 @@ public class CommentService {
             if(dbComment == null){
                 throw new CustomizeException(CustomizeErrorCode.COMMENT_NOT_FOUND);
             }
+            //回复问题
+            Question question = questionMapper.selectByPrimaryKey(dbComment.getParentId());
+            if(question == null){
+                throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+            }
+
             commentMapper.insert(comment);
             //增加评论数
             Comment parentComment = new Comment();
             parentComment.setId(comment.getParentId());
             parentComment.setCommentCount(1);
             commenteExtMapper.incCommentCount(parentComment);
+            //创建通知
+            createNotify(comment, dbComment.getCommentator(), commentator.getName(), question.getTitle(), NotificationTypeEnum.REPLY_COMMENT, question.getId());
         }else{
             //回复问题
             Question question = questionMapper.selectByPrimaryKey(comment.getParentId());
@@ -64,7 +77,24 @@ public class CommentService {
             commentMapper.insert(comment);//添加评论内容等信息
             question.setCommentCount(1);
             questionExtMapper.incComment(question);//增加评论数
+
+            //创建通知
+            createNotify(comment, question.getCreator(), commentator.getName(), question.getTitle(),NotificationTypeEnum.REPLY_QUESTION, question.getId());
+
         }
+    }
+
+    private void createNotify(Comment comment, Long receiver, String notifierName, String outerTitle, NotificationTypeEnum notificationType, Long outerId) {
+        Notification notification = new Notification();
+        notification.setGmtCreate(System.currentTimeMillis());
+        notification.setType(notificationType.getType());
+        notification.setOuterid(outerId);//回复的是谁
+        notification.setNotifier(comment.getCommentator());
+        notification.setStatus(NotificationStatusEnum.UNREAD.getStatus());
+        notification.setReceiver(receiver);
+        notification.setNotifierName(notifierName);
+        notification.setOuterTitle(outerTitle);
+        notificationMapper.insert(notification);
     }
 
     public List<CommentDTO> listByTargetId(Long id, CommentTypeEnum type) {

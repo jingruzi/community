@@ -7,8 +7,8 @@ import java.util.List;
 
 //封装分页中的页码信息，通过问题总数，当前页，每一页的问题数，来实现分页的功能
 @Data
-public class PaginationDTO {
-    private List<QuestionDTO> questions;
+public class PaginationDTO<T> {
+    private List<T> data;
     private boolean showPrevious;//向前按钮
     private boolean showFirstPage;//第一页按钮
     private boolean showNext;
